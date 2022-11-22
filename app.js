@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.port || 4000;
+const PORT = process.env.port || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('views'));
@@ -17,9 +17,13 @@ app.use('/api/login', routerLogin);
 const routerRegister = require('./routes/register');
 app.use('/api/register', routerRegister);
 
+const routerNextMeals = require('./routes/nextMeals');
+app.use('/nextMeals',routerNextMeals);
+
 app.get('/*', (req, res) => {
     res.status(404).send('Error 404: Not Found');
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server is running in ${PORT}`);

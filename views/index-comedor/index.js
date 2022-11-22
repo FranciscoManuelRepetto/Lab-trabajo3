@@ -2,7 +2,7 @@
 //////
 // Inicio peticion menu de hoy
 /////
-const endPoint = "http://localhost:4000/api/menus";
+const endPoint = "http://localhost:3000/api/menus";
 
 let menus;
 
@@ -66,15 +66,15 @@ function aparecerModal(name, number) {
     let priceContainer = document.createElement("div");
 
     let reserve = document.createElement("p");
-    reserve.classList.add("reserve");
+    reserve.classList.add("info-coupon");
     reserve.innerHTML = "Cantidad de Cupones: "+elem.reservas;
 
     let price = document.createElement("p");
-    price.classList.add("price");
+    price.classList.add("info-coupon");
     price.innerHTML = "Precio: "+elem.precio;
 
     let cardPrice = document.createElement("p");
-    cardPrice.classList.add("price");
+    cardPrice.classList.add("info-coupon");
     cardPrice.innerHTML = "Precio Carnet: "+elem.precio;
 
     priceContainer.appendChild(reserve);
@@ -136,6 +136,9 @@ function aparecerModal(name, number) {
     bigBox.focus();
 }
 
+let option = ["desayunos", "almuerzos", "meriendas"];
+let comidas = [menus.desayunos, menus.almuerzos, menus.meriendas];
+
 const generateTodayMenu = (menus) => {
     let option = ["desayunos", "almuerzos", "meriendas"];
     let comidas = [menus.desayunos, menus.almuerzos, menus.meriendas];
@@ -175,6 +178,7 @@ const generateTodayMenu = (menus) => {
         }
     }
 }
+
 
 
 let elemntsNextMeals = document.querySelectorAll('#next-meal');
