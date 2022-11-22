@@ -1,0 +1,11 @@
+POST http://localhost:4000/api/register
+Content-Type: application/json
+
+{
+    "legajo":"FAI-2543",
+    "password":"qqqqqqqqqqqqqqqqqq",
+    "email":"qwer@a.com"
+}
+
+####
+GET http://localhost:4000/api/menus

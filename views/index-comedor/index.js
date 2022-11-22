@@ -1,4 +1,26 @@
-import menus from '../menus.json' assert { type:'json' };
+//import menus from '../menus.json' assert { type:'json' };
+//////
+// Inicio peticion menu de hoy
+/////
+const endPoint = "http://localhost:4000/api/menus";
+
+let menus;
+
+async function getTodayMenu() {
+    let response = await fetch(endPoint);
+    let menu = await response.json();
+    menus = menu;
+    generateTodayMenu(menu);
+};
+
+const menuPromise = new Promise((resolve, reject) => {
+    menus = getTodayMenu();
+})
+.catch((err) => {console.log(error)})
+//////
+// No se porque pero con .then() no hace lo que tiene que hacer
+// Fin peticion menu de hoy
+/////
 
 let foodElem = document.querySelectorAll('.container-row-food');
 
@@ -114,41 +136,43 @@ function aparecerModal(name, number) {
     bigBox.focus();
 }
 
-let option = ["desayunos", "almuerzos", "meriendas"];
-let comidas = [menus.desayunos, menus.almuerzos, menus.meriendas];
+const generateTodayMenu = (menus) => {
+    let option = ["desayunos", "almuerzos", "meriendas"];
+    let comidas = [menus.desayunos, menus.almuerzos, menus.meriendas];
 
-for (let index = 0; index < 3; index++) {
-    let toGenerate = comidas[index];
-
-    for (let i = 0; i < toGenerate.length; i++) {
-        let elements = new Array(5);
+    for (let index = 0; index < 3; index++) {
+        let toGenerate = comidas[index];
         
-        let button = document.createElement("button");
-        button.id = "clickeable";
-        button.addEventListener('click', () => {
-            aparecerModal(option[i], i)
-        });
+        for (let i = 0; i < toGenerate.length; i++) {
+            let elements = new Array(5);
+            
+            let button = document.createElement("button");
+            button.id = "clickeable";
+            button.addEventListener('click', () => {
+                aparecerModal(option[i], i)
+            });
 
-        elements[1] = document.createElement("div");
-        elements[1].classList.add("little-box");
-        button.appendChild(elements[1]);
+            elements[1] = document.createElement("div");
+            elements[1].classList.add("little-box");
+            button.appendChild(elements[1]);
 
-        elements[2] = document.createElement("img");
-        elements[2].classList.add("small-image");
-        elements[2].alt = "Imagen del menu " + toGenerate[i].nombre;;
-        elements[2].src = toGenerate[i].foto;
-        elements[1].appendChild(elements[2]);
+            elements[2] = document.createElement("img");
+            elements[2].classList.add("small-image");
+            elements[2].alt = "Imagen del menu " + toGenerate[i].nombre;;
+            elements[2].src = toGenerate[i].foto;
+            elements[1].appendChild(elements[2]);
 
-        elements[3] = document.createElement("div");
-        elements[3].classList.add("little-box-title");
-        elements[1].appendChild(elements[3]);
+            elements[3] = document.createElement("div");
+            elements[3].classList.add("little-box-title");
+            elements[1].appendChild(elements[3]);
 
-        elements[4] = document.createElement("h4");
-        elements[4].id = "little-title-style";
-        elements[4].innerHTML = toGenerate[i].nombre;
-        elements[3].appendChild(elements[4]);
-        
-        elemts[index].appendChild(button);
+            elements[4] = document.createElement("h4");
+            elements[4].id = "little-title-style";
+            elements[4].innerHTML = toGenerate[i].nombre;
+            elements[3].appendChild(elements[4]);
+            
+            elemts[index].appendChild(button);
+        }
     }
 }
 
