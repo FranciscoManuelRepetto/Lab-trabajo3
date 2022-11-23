@@ -9,16 +9,18 @@ let menus;
 async function getTodayMenu() {
     let response = await fetch(endPoint);
     let menu = await response.json();
-    menus = menu;
-    generateTodayMenu(menu);
+    return menu;
 };
 
-const menuPromise = new Promise((resolve, reject) => {
-    menus = getTodayMenu();
+const menuPromise = new Promise((resolve) => {
+    return resolve(getTodayMenu());
+})
+.then(menu => {
+    generateTodayMenu(menu);
+    menus = menu;
 })
 .catch((err) => {console.log(error)})
 //////
-// No se porque pero con .then() no hace lo que tiene que hacer
 // Fin peticion menu de hoy
 /////
 
