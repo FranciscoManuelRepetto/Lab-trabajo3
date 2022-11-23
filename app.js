@@ -20,6 +20,9 @@ app.use('/api/register', routerRegister);
 const routerNextMeals = require('./routes/nextMeals');
 app.use('/nextMeals',routerNextMeals);
 
+const routerMenu = require('./routes/menus');
+app.use('/api/menus', routerMenu);
+
 app.get('/*', (req, res) => {
     res.status(404).send('Error 404: Not Found');
 });

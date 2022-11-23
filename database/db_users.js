@@ -1,8 +1,8 @@
 let usuarios = [
     {
-        "legajo":"Administrador",
+        "legajo":"admin",
         "email":"administracionComedor@gmail.com",
-        "password": "password-Not"
+        "password": "admin"
     },
     {
         "legajo":"FAIF-0001",

@@ -2,12 +2,13 @@
 //////
 // Inicio peticion menu de hoy
 /////
-const endPoint = "http://localhost:3000/api/menus";
+const endPoint = "http://localhost:3000/api/menus/";
 
+const dateToday = new Date().toISOString().substring(0,10);
 let menus;
 
 async function getTodayMenu() {
-    let response = await fetch(endPoint);
+    let response = await fetch(endPoint+dateToday);
     let menu = await response.json();
     return menu;
 };
@@ -16,10 +17,11 @@ const menuPromise = new Promise((resolve) => {
     return resolve(getTodayMenu());
 })
 .then(menu => {
+    console.log(menu);
     generateTodayMenu(menu);
     menus = menu;
 })
-.catch((err) => {console.log(error)})
+.catch((err) => {console.log(err)})
 //////
 // Fin peticion menu de hoy
 /////
@@ -137,9 +139,6 @@ function aparecerModal(name, number) {
 
     bigBox.focus();
 }
-
-let option = ["desayunos", "almuerzos", "meriendas"];
-let comidas = [menus.desayunos, menus.almuerzos, menus.meriendas];
 
 const generateTodayMenu = (menus) => {
     let option = ["desayunos", "almuerzos", "meriendas"];
