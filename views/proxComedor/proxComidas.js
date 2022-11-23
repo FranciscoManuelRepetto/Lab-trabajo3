@@ -1,68 +1,99 @@
-import historial from '../historial.json' assert { type:'json' };
+//import historial from '../historial.json' assert { type:'json' };
 
-const buildDate = (fecha) => {
+// Inicio peticion menu de los proximos dias
+/////
+const endPoint = "http://localhost:3000/nextMeals/api/nextMeals";
+
+let historial;
+
+async function getNextMenus() {
+    let response = await fetch(endPoint);
+    let menu = await response.json();
+    historial = menu;
+    generateNextMenu(menu);
+};
+
+const menuPromise = new Promise((resolve, reject) => {
+    historial = getNextMenus();
+})
+.catch((err) => {console.log(error)})
+
+
+
+const crearFecha = (fecha) => {
     let dd = fecha.day;
     let mm = fecha.month;
     let yyyy = fecha.year;
     let today = dd + '/' + mm + '/' + yyyy;
+    let aux = yyyy+'-'+mm+'-'+dd+' 00:00:00';
+    today = obtenerDiaSeamana(aux)+' '+today;
     return today;
 }
 
-let option = ["desayunos", "almuerzos", "meriendas"];
-let sizeHistorial = historial.length;
-let container = document.querySelector('.container-menus');
+function obtenerDiaSeamana(fecha){
+    const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado',];
+    const numeroDia = new Date(fecha).getDay();
+    return dias[numeroDia];
+}
 
-for (let index = 0; index < sizeHistorial; index++) {
-    let foodDay = historial[index];
+const generateNextMenu = (historial) => {
+    let option = ["desayunos", "almuerzos", "meriendas"];
+    let sizeHistorial = historial.length;
+    let container = document.querySelector('.container-menus');
 
-    let toGenerate = [foodDay.desayunos, foodDay.almuerzos, foodDay.meriendas];
-    let sizeGenerate = toGenerate.length;
 
-    let titulo = document.createElement("h3");
-    titulo.id = "date-food";
-    titulo.textContent = buildDate(foodDay.fecha);
-    container.appendChild(titulo);
+    for (let index = 0; index < sizeHistorial; index++) {
+        let foodDay = historial[index];
 
-    let containerRow = document.createElement("section");
-    containerRow.classList.add("container-row");
-    containerRow.classList.add("space-box");    
+        let toGenerate = [foodDay.desayunos, foodDay.almuerzos, foodDay.meriendas];
+        let sizeGenerate = toGenerate.length;
 
-    for (let i = 0; i < sizeGenerate; i++) {
-        
-        let column = document.createElement("div");
-        column.classList.add("column");
+        let titulo = document.createElement("h3");
+        titulo.id = "date-food";
+        titulo.textContent = crearFecha(foodDay.fecha);
+        container.appendChild(titulo);
 
-        let name = document.createElement("h4");
-        name.classList.add("name");
-        name.textContent = option[i];
-        column.appendChild(name);
+        let containerRow = document.createElement("section");
+        containerRow.classList.add("container-row");
+        containerRow.classList.add("space-box");    
 
-        for (let j = 0; j < 2; j++) {
-            let littleBox = document.createElement("div");
-            littleBox.classList.add("little-box-"+(j+1));
-            column.appendChild(littleBox);
-
-            let boxImgTitle = document.createElement("div");
-            boxImgTitle.classList.add("little-box");
-            littleBox.appendChild(boxImgTitle);
+        for (let i = 0; i < sizeGenerate; i++) {
             
-            let image = document.createElement("img");
-            image.classList.add("small-image");
-            image.alt = "Imagen del menu "+toGenerate[i][j].nombre;
-            image.src = toGenerate[i][j].foto;
-            boxImgTitle.appendChild(image);
+            let column = document.createElement("div");
+            column.classList.add("column");
 
-            let titleBox = document.createElement("div");
-            titleBox.classList.add("little-box-title");
+            let name = document.createElement("h4");
+            name.classList.add("meal");
+            name.textContent = option[i];
+            column.appendChild(name);
 
-            let title = document.createElement("h5");
-            title.id = "little-title-style";
-            title.textContent = toGenerate[i][j].nombre;
-            titleBox.appendChild(title);
-            boxImgTitle.appendChild(titleBox);
+            for (let j = 0; j < 2; j++) {
+                let littleBox = document.createElement("div");
+                littleBox.classList.add("little-box-"+(j+1));
+                column.appendChild(littleBox);
+
+                let boxImgTitle = document.createElement("div");
+                boxImgTitle.classList.add("little-box");
+                littleBox.appendChild(boxImgTitle);
+                
+                let image = document.createElement("img");
+                image.classList.add("small-image");
+                image.alt = "Imagen del menu "+toGenerate[i][j].nombre;
+                image.src = toGenerate[i][j].foto;
+                boxImgTitle.appendChild(image);
+
+                let titleBox = document.createElement("div");
+                titleBox.classList.add("little-box-title");
+
+                let title = document.createElement("h5");
+                title.id = "little-title-style";
+                title.textContent = toGenerate[i][j].nombre;
+                titleBox.appendChild(title);
+                boxImgTitle.appendChild(titleBox);
+            }
+            containerRow.appendChild(column);
+            container.appendChild(containerRow);
         }
-        containerRow.appendChild(column);
-        container.appendChild(containerRow);
     }
 }
 
