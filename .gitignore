@@ -1,3 +1,4 @@
 node_modules
 index.http
-.vscode
+
+.vscode/*
