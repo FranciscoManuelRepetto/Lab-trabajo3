@@ -12,12 +12,6 @@ app.use(express.json());
 const routerHome = require('./routes/home');
 app.use('/', routerHome);
 
-const routerLogin = require('./routes/login');
-app.use('/api/login', routerLogin);
-
-const routerRegister = require('./routes/register');
-app.use('/api/register', routerRegister);
-
 const routerNextMeals = require('./routes/nextMeals');
 app.use('/nextMeals',routerNextMeals);
 
