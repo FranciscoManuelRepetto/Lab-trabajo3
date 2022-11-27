@@ -1,8 +1,17 @@
 //import historial from '../historial.json' assert { type:'json' };
 
+const getFridayOfCurrentWeek = (date) => {
+    const fridayDayMonth = (date.getDate() - date.getDay() + 1) + 4;
+    const friday = new Date(date.setDate(fridayDayMonth));
+    return friday;
+}
+
 // Inicio peticion menu de los proximos dias
 /////
-const endPoint = "http://localhost:3000/nextMeals/api/nextMeals";
+const endPoint = "http://localhost:3000/api/menus";
+
+let dateInit = new Date().toISOString().substring(0,10);
+let dateEnd = new Date(getFridayOfCurrentWeek(dateInit));
 
 let historial;
 
@@ -31,7 +40,7 @@ const crearFecha = (fecha) => {
 }
 
 function obtenerDiaSeamana(fecha){
-    const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado',];
+    const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
     const numeroDia = new Date(fecha).getDay();
     return dias[numeroDia];
 }

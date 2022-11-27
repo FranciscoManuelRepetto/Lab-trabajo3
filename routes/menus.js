@@ -10,10 +10,17 @@ routerMenu.get('/', (req, res) => {
 });
 
 routerMenu.get('/:date', (req, res) => {
-    let todayMenu = getMenuDate(dayjs(req.params.date));
-    if(todayMenu.length === 0){
+    let date = dayjs(req.params.date);
+    if(date === null){
+        res.status(400).json({Error: 'Date format is invalid, use YYYY-MM-DD'});
+    }
+
+    let todayMenu = getMenuDate(date) || null;
+
+    if(todayMenu === null){
         res.status(404).json({Error: 'Not Found'});
     }
+
     res.status(200).send(todayMenu);
 });
 
@@ -28,7 +35,7 @@ routerMenu.get('/:dateInit/:dateEnd', (req, res) => {
         res.status(400).json({Error: 'Date initial is after date end'});
     }
 
-    let menus = getMenusBetween(date1, date2);
+    let menus = getMenusBetween(date1, date2) || null;
 
     if(menus.length === 0){
         res.status(406).json({Error: 'Menus between dates was not found'});
@@ -40,7 +47,7 @@ routerMenu.get('/:dateInit/:dateEnd', (req, res) => {
 routerMenu.post('/', (req, res) => {
     let dateReq = getDayjsFormat(req.body.fecha);
     let menuObtained = menus.find(menu => getDayjsFormat(menu.fecha).isSame(dateReq)) || null;
-    console.log(menuObtained);
+
     if(menuObtained !== null){
         res.status(409).json({Error:'Already menu with date loaded'});
     }
