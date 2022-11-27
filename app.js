@@ -13,7 +13,7 @@ const routerHome = require('./routes/home');
 app.use('/', routerHome);
 
 const routerNextMeals = require('./routes/nextMeals');
-app.use('/nextMeals',routerNextMeals);
+app.use('/proxComedor',routerNextMeals);
 
 const routerMenu = require('./routes/menus');
 app.use('/api/menus', routerMenu);

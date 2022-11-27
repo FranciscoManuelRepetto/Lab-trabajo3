@@ -1,6 +1,7 @@
 //import historial from '../historial.json' assert { type:'json' };
 
-const getFridayOfCurrentWeek = (date) => {
+const getFridayOfCurrentWeek = () => {
+    let date = new Date();
     const fridayDayMonth = (date.getDate() - date.getDay() + 1) + 4;
     const friday = new Date(date.setDate(fridayDayMonth));
     return friday;
@@ -11,22 +12,24 @@ const getFridayOfCurrentWeek = (date) => {
 const endPoint = "http://localhost:3000/api/menus";
 
 let dateInit = new Date().toISOString().substring(0,10);
-let dateEnd = new Date(getFridayOfCurrentWeek(dateInit));
+let dateEnd = new Date(getFridayOfCurrentWeek());
 
 let historial;
 
 async function getNextMenus() {
     let response = await fetch(endPoint);
     let menu = await response.json();
-    historial = menu;
-    generateNextMenu(menu);
+    return menu;
 };
 
 const menuPromise = new Promise((resolve, reject) => {
-    historial = getNextMenus();
+    resolve(getNextMenus());
 })
-.catch((err) => {console.log(error)})
-
+.then(menu => {
+    generateNextMenu(menu);
+    historial = menu;
+})
+.catch((err) => {console.log(err)})
 
 
 const crearFecha = (fecha) => {
@@ -113,8 +116,8 @@ elemntsBack.forEach((elem) => {
 });
 
 buttonsBack[0].addEventListener('click', () => {
-    location.href = "../index-comedor/index.html";
+    location.href = "/";
 });
 buttonsBack[1].addEventListener('click', () => {
-    location.href = "../index-comedor/index.html";
+    location.href = "/";
 });

@@ -17,7 +17,6 @@ const menuPromise = new Promise((resolve) => {
     return resolve(getTodayMenu());
 })
 .then(menu => {
-    console.log(menu);
     generateTodayMenu(menu);
     menus = menu;
 })
@@ -189,8 +188,8 @@ elemntsNextMeals.forEach((elem) => {
 });
 
 buttonsNextMeal[0].addEventListener('click', () => {
-    location.href = "../proxComedor/proxComidas.html";
+    location.href = "/proxComedor";
 });
 buttonsNextMeal[1].addEventListener('click', () => {
-    location.href = "../proxComedor/proxComidas.html";
+    location.href = "/proxComedor";
 });

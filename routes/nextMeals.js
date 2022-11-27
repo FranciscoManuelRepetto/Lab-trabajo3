@@ -4,7 +4,7 @@ const routerNextMeals = express.Router();
 const path = require('path');
 routerNextMeals.use(express.static('views'));
 
-routerNextMeals.get('/proxComedor', (req, res) => {
+routerNextMeals.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,'../views/proxComedor/proxComidas.html'));
 });
 
