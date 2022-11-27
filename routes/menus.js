@@ -2,6 +2,7 @@ const express = require('express');
 const routerMenu = express.Router();
 
 const menus = require('../database/db_menus');
+const validator = require('../validate/ValidateMenus');
 
 const dayjs = require('dayjs');
 
@@ -35,24 +36,33 @@ routerMenu.get('/:dateInit/:dateEnd', (req, res) => {
         res.status(400).json({Error: 'Date initial is after date end'});
     }
 
+    date2 = date2.add(1, 'day');
+
     let menus = getMenusBetween(date1, date2) || null;
 
     if(menus.length === 0){
         res.status(406).json({Error: 'Menus between dates was not found'});
-        
     }
     res.status(200).send(menus);
 });
 
 routerMenu.post('/', (req, res) => {
-    let dateReq = getDayjsFormat(req.body.fecha);
+    let menu = buildMenu(req.body);
+
+    if(menu.Error){
+        res.status(400).json(menu.Error);
+    }
+
+    let dateReq = getDayjsFormat(menu.fecha);
     let menuObtained = menus.find(menu => getDayjsFormat(menu.fecha).isSame(dateReq)) || null;
 
     if(menuObtained !== null){
         res.status(409).json({Error:'Already menu with date loaded'});
     }
-    menus.push(req.body);
-    res.status(201).json(menus);
+
+    menus.push(menu);
+
+    res.status(201).json(menu);
 });
 
 const getDayjsFormat = (dateJSON) => {
@@ -68,11 +78,39 @@ const getMenuDate = (date) => {
 };
 
 const getMenusBetween = (date1, date2) => {
-    const dateMenus = menus.findAll(menu => {
+    const dateMenus = menus.filter(menu => {
         let dateLook = getDayjsFormat(menu.fecha);
-        return dateLook.isBetween(date1, date2, 'day');
+        return  dateLook.isAfter(date1, 'day') &&
+                dateLook.isBefore(date2, 'day');
     });
     return dateMenus;
+};
+
+const buildMenu = (menuBody) => {
+    try{
+        validator.checkMenu(menuBody);
+    }
+    catch(err){
+        return {"Error": `${err}`};
+    }
+
+    let menuJSON = setId(menuBody);
+
+    return menuJSON;
+};
+
+const setId = (menuJSON) => {
+    let times = ["desayunos","almuerzos","meriendas"];
+    let date = `${menuJSON.fecha.year}-${menuJSON.fecha.month}-${menuJSON.fecha.day}`;
+    for (let index = 0; index < 3; index++) {
+        let menuSize = (menuJSON[times[index]]).length;
+        
+        for (let i = 0; i < menuSize; i++) {
+            menuJSON[times[index]][i].id = `${date}${times[index]}${i}`;
+        }
+    }
+
+    return menuJSON;
 };
 
 module.exports = routerMenu;
