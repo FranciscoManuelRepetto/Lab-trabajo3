@@ -181,7 +181,7 @@ const generateTodayMenu = (menus) => {
 
 function failLoad(){
     let contenedor = document.querySelector('.container-menus');
-    contenedor.classList.add('title-menu-today', 'center');
+    contenedor.id = 'time-foods';
     contenedor.innerHTML = "No se han encontrado menus para hoy";
 }
 

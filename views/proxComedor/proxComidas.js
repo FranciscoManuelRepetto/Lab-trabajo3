@@ -29,8 +29,13 @@ const menuPromise = new Promise((resolve, reject) => {
     generateNextMenu(menu);
     historial = menu;
 })
-.catch((err) => {console.log(err)})
+.catch((err) => {failLoad()})
 
+function failLoad(){
+    let contenedor = document.querySelector('.container-menus');
+    contenedor.id = 'title-menu-nextMeals';
+    contenedor.innerHTML = "No se han encontrado menus para hoy";
+}
 
 const createdate = (fecha) => {
     let dd = fecha.day;
