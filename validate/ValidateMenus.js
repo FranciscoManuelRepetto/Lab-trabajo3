@@ -6,9 +6,9 @@ const dateSchema = {
     "id": "/DateSchema",
     "type": "object",
     "properties":{
-        "year":{"type":"integer", "minimun":1},
-        "month":{"type":"integer", "minimun":1, "maximun":12},
-        "day":{"type":"integer", "minimun":1, "maximun":31}
+        "year":{"type":"integer", "minimum":1},
+        "month":{"type":"integer", "minimum":1, "maximum":12},
+        "day":{"type":"integer", "minimum":1, "maximum":31}
     },
     "required": ["year", "month", "day"]
 }
