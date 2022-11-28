@@ -281,76 +281,7 @@ let menus = [
             }
         ]
     },
-    {
-        "fecha":{"year":2022, "month":11, "day":28},
-        "desayunos":[
-            {
-                
-                "nombre":"Et voluptate et nostrud eiusmod",
-                "ingredientes":"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.",
-                "precio":2,
-                "precioCarnet":1,
-                "foto":"https://assets.unileversolutions.com/recipes-v2/209413.jpg",
-                "reservas":100,
-                "likes":0,
-                "id":"2022-11-28desayunos0"
-            },
-            {
-                "nombre":"Et voluptate et nostrud eiusmod",
-                "ingredientes":"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.",
-                "precio":2,
-                "precioCarnet":1,
-                "foto":"https://assets.unileversolutions.com/recipes-v2/209413.jpg",
-                "reservas":100,
-                "likes":0,
-                "id":"2022-11-28desayunos1"
-            }
-        ],
-        "almuerzos":[
-            {
-                "nombre":"Et voluptate et nostrud eiusmod",
-                "ingredientes":"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.",
-                "precio":2,
-                "precioCarnet":1,
-                "foto":"https://assets.unileversolutions.com/recipes-v2/209413.jpg",
-                "reservas":100,
-                "likes":0,
-                "id":"2022-11-28almuerzos0"
-            },
-            {
-                "nombre":"Et voluptate et nostrud eiusmod",
-                "ingredientes":"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.",
-                "precio":2,
-                "precioCarnet":1,
-                "foto":"https://assets.unileversolutions.com/recipes-v2/209413.jpg",
-                "reservas":100,
-                "likes":0,
-                "id":"2022-11-28almuerzos1"
-            }
-        ],
-        "meriendas":[
-            {
-                "nombre":"Et voluptate et nostrud eiusmod",
-                "ingredientes":"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.",
-                "precio":2,
-                "precioCarnet":1,
-                "foto":"https://assets.unileversolutions.com/recipes-v2/209413.jpg",
-                "reservas":100,
-                "likes":0,
-                "id":"2022-11-28meriendas0"
-            },
-            {
-                "nombre":"Et voluptate et nostrud eiusmod",
-                "ingredientes":"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.",
-                "precio":2,
-                "precioCarnet":1,
-                "foto":"https://assets.unileversolutions.com/recipes-v2/209413.jpg",
-                "reservas":100,
-                "likes":0,
-                "id":"2022-11-28meriendas1"
-            }
-        ]
-    },
+    
     {
         "fecha":{"year":2022, "month":11, "day":29},
         "desayunos":[

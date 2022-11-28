@@ -20,7 +20,7 @@ const menuPromise = new Promise((resolve) => {
     generateTodayMenu(menu);
     menus = menu;
 })
-.catch((err) => {console.log(err)})
+.catch((err) => {failLoad()})
 //////
 // Fin peticion menu de hoy
 /////
@@ -179,6 +179,11 @@ const generateTodayMenu = (menus) => {
     }
 }
 
+function failLoad(){
+    let contenedor = document.querySelector('.container-menus');
+    contenedor.classList.add('title-menu-today', 'center');
+    contenedor.innerHTML = "No se han encontrado menus para hoy";
+}
 
 
 let elemntsNextMeals = document.querySelectorAll('#next-meal');
