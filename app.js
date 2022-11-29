@@ -14,7 +14,7 @@ app.use(express.json());
 const routerHome = require('./routes/home');
 app.use('/', routerHome);
 
-//Ruta de la pestaña del menu de hoy
+//Ruta de la pestaña de menu de proximos dias
 const routerNextMeals = require('./routes/nextMeals');
 app.use('/proxComedor',routerNextMeals);
 
@@ -22,7 +22,7 @@ app.use('/proxComedor',routerNextMeals);
 const routerMenu = require('./routes/menus');
 app.use('/api/menus', routerMenu);
 
-//Ruta generica que es distinta a las anteriores
+//Ruta generica que redirige a un 404, para cualquier ruta no declarada arriba
 app.get('/*', (req, res) => {
     res.status(404).sendFile(path.join(__dirname,'./views/error404/error.html'));
 });
