@@ -1,7 +1,8 @@
+//Importa la libreria jsonschema
 const { Validator } = require('jsonschema');
-
 const validator = new Validator();
 
+//Define tipo de datos de los elementos de la fecha
 const dateSchema = {
     "id": "/DateSchema",
     "type": "object",
@@ -13,6 +14,7 @@ const dateSchema = {
     "required": ["year", "month", "day"]
 }
 
+//Define tipo de datos de los elementos del submenu
 const submenuSchema = {
     "id": "/SubmenuSchema",
     "type": "object",
@@ -29,6 +31,7 @@ const submenuSchema = {
             "precioCarnet", "foto", "reservas", "likes"]
 }
 
+//Define tipo de datos de los elementos del menu completo
 const menuSchema = {
     "id": "/MenuSchema",
     "type": "object",
@@ -62,6 +65,7 @@ const menuSchema = {
 validator.addSchema(dateSchema, '/DateSchema');
 validator.addSchema(submenuSchema, '/SubmenuSchema');
 
+//Funcion que verifica si el menu ingresado por parametro cuenta con datos validos
 const checkMenu = (menu) => {
     let validate = validator.validate(menu, menuSchema, {required: true});
 
