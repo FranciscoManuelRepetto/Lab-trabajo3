@@ -14,6 +14,78 @@ routerMenu.get('/', (req, res) => {
     res.status(200).json(menus);
 });
 
+//Endpoint que retorna el menu correspondiente al fecha de mañana
+routerMenu.get('/coming',
+        (req, res, next) => {
+            queryIsNotEmpty = JSON.stringify(req.query) !== '{}';
+            if(queryIsNotEmpty)next('route');
+            else next();
+        },
+        (req, res, next) => {
+            let date = dayjs().add(1, 'day');
+            let firstMenu = getMenuDate(date) || null;
+
+            if(firstMenu === null){
+                //Si no existe un menu entre las fechas ingresada entonces se envia un error 406
+                res.status(406).json({Error: 'Menus between dates was not found'});
+            }
+
+            let firstMenuPaged = buildPagination(firstMenu, 1, date);
+
+            res.header(`Access-Control-Allow-Origin`);
+            res.status(200).send(firstMenuPaged);
+});
+
+//Endpoint que retorna un menu correspondiente a, la fecha de mañana sumado una cantidad de dias
+routerMenu.get('/coming', 
+        (req, res, next) => {
+            existsPage = (JSON.stringify(req.query.page) || null) !== null;
+            if(!existsPage) next('route');
+            else next();
+        },
+        (req, res, next) => {
+            let date = dayjs().add(req.query.page, 'day');
+
+            let menu = getMenuDate(date) || null;
+
+            if(menu === null){
+                //Si no existe un menu para la pagina ingresada se envia un error 404
+                res.status(404).json({Error: 'Not Found'});
+            }
+            
+            const menuPaged = buildPagination(menu, req.query.page, date);
+
+            res.header(`Access-Control-Allow-Origin`);
+            res.status(200).send(menuPaged);
+});
+
+//Endpoint que recibe por query dos fechas y retorna los menus con fechas en el medio
+routerMenu.get('/coming',
+        (req, res, next) => {
+            let date1 = dayjs(req.query.dateInit);
+            let date2 = dayjs(req.query.dateEnd);
+
+            if(date1 === null || date2 === null){
+                //Si la fechas ingresadas no corresponde con el formato solicita, envia un error 400  
+                res.status(400).json({Error: 'Date format is invalid, use YYYY-MM-DD'});
+            }
+
+            if(date1.isAfter(date2)){
+                res.status(400).json({Error: 'Date initial is after date end'});
+            }
+
+            date2 = date2.add(1, 'day');
+
+            let menus = getMenusBetween(date1, date2) || null;
+
+            if(menus.length === 0){
+                //Si no existe un menu entre las fechas ingresada entonces se envia un error 406
+                res.status(406).json({Error: 'Menus between dates was not found'});
+            }
+            res.header(`Access-Control-Allow-Origin`);
+            res.status(200).send(menus);
+});
+
 //Endpoint que le llega por parametro una fecha y retorna el menu de esa fecha si existe
 routerMenu.get('/:date', (req, res) => {
     let date = dayjs(req.params.date);
@@ -22,38 +94,15 @@ routerMenu.get('/:date', (req, res) => {
         res.status(400).json({Error: 'Date format is invalid, use YYYY-MM-DD'});
     }
 
-    let dateMenu = getMenuDate(date) || null;
+    let menu = getMenuDate(date) || null;
 
-    if(dateMenu === null){
+    if(menu === null){
         //Si no existe un menu con la fecha ingresada entonces se envia un error 406
         res.status(404).json({Error: 'Not Found'});
     }
 
-    res.status(200).send(dateMenu);
-});
-
-//Endpoint que le llega por parametro dos fechas y retorna los menus con fechas en el medio
-routerMenu.get('/:dateInit/:dateEnd', (req, res) => {
-    let date1 = dayjs(req.params.dateInit);
-    let date2 = dayjs(req.params.dateEnd);
-    if(date1 === null || date2 === null){
-        //Si la fechas ingresadas no corresponde con el formato solicita, envia un error 400  
-        res.status(400).json({Error: 'Date format is invalid, use YYYY-MM-DD'});
-    }
-
-    if(date1.isAfter(date2)){
-        res.status(400).json({Error: 'Date initial is after date end'});
-    }
-
-    date2 = date2.add(1, 'day');
-
-    let menus = getMenusBetween(date1, date2) || null;
-
-    if(menus.length === 0){
-        //Si no existe un menu entre las fechas ingresada entonces se envia un error 406
-        res.status(406).json({Error: 'Menus between dates was not found'});
-    }
-    res.status(200).send(menus);
+    res.header(`Access-Control-Allow-Origin`);
+    res.status(200).send(menu);
 });
 
 //Endpoint que recibe en el body un menu y si los datos son validos crea un menu y lo almacena
@@ -76,6 +125,7 @@ routerMenu.post('/', (req, res) => {
 
     menus.push(menu);
 
+    res.header(`Access-Control-Allow-Origin`);
     res.status(201).json(menu);
 });
 
@@ -86,11 +136,11 @@ const getDayjsFormat = (dateJSON) => {
 
 //Funcion que retorna el menu de una fecha especifica
 const getMenuDate = (date) => {
-    const dateMenus = menus.find(menu => {
+    const menuFromDate = menus.find(menu => {
         let dateLook = getDayjsFormat(menu.fecha);
         return dateLook.isSame(date, 'day');
     });
-    return dateMenus;
+    return menuFromDate;
 };
 
 //Funcion que retorna los menus entre dos fechas especificas
@@ -103,6 +153,22 @@ const getMenusBetween = (date1, date2) => {
     return dateMenus;
 };
 
+//Funcion que construye la respuesta json para paginado infinito
+const buildPagination = (menuJSON, currentPage, currentDate) => {
+    const newDate = currentDate.add(1, 'day');
+    const nextMenu = getMenuDate(newDate) || null;
+
+    const nextPage = nextMenu === null? "null" : '"'+process.env.URL_COMING+"?page="+(parseInt(currentPage)+1)+'"';
+    
+    const prevPage = currentPage === 1 ? "null" : '"'+process.env.URL_COMING+"?page="+(parseInt(currentPage)-1)+'"';
+    
+    const menuPaged = 
+        '{"info": {"next":'+nextPage+', "prev":'+prevPage+'},'+
+        '"result":'+JSON.stringify(menuJSON)+'}';
+    return menuPaged;
+};
+
+//Agregar fecha creacion "CreadoEn":"Date"
 //Funcion para validar si el menu ingresado por parametro es valido
 const buildMenu = (menuBody) => {
     try{

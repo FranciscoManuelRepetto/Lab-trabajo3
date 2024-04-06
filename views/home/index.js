@@ -1,8 +1,8 @@
 //import menus from '../menus.json' assert { type:'json' };
 //////
 // Inicio peticion menu de hoy
-/////
-const endPoint = "http://localhost:3000/api/menus/";
+///// Separar fetch y demas
+const endPoint = location.href +"api/menus/";
 
 const dateToday = new Date().toISOString().substring(0,10);
 let menus;

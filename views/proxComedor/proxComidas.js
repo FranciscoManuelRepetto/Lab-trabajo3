@@ -9,15 +9,17 @@ const getFridayOfCurrentWeek = () => {
 
 // Inicio peticion menu de los proximos dias
 /////
-const endPoint = "http://localhost:3000/api/menus";
 
 let dateInit = new Date().toISOString().substring(0,10);
-let dateEnd = new Date(getFridayOfCurrentWeek());
+let dateEnd = new Date(getFridayOfCurrentWeek()).toISOString().substring(0,10);
+
+//Reeplantear este endpoint
+const API_URL = location.href.substring(0,25)+"api/menus/coming?dateInit="+dateInit+"&dateEnd="+dateEnd;
 
 let historial;
 
 async function getNextMenus() {
-    let response = await fetch(endPoint);
+    let response = await fetch(API_URL);
     let menu = await response.json();
     return menu;
 };
