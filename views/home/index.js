@@ -1,132 +1,176 @@
-//import menus from '../menus.json' assert { type:'json' };
-//////
-// Inicio peticion menu de hoy
-///// Separar fetch y demas
-const endPoint = location.href +"api/menus/";
+import {addFunctionRefButton} from '../services/addFunctionRefButton.js'
+import {getTodayMenu} from '../services/getTodayMenu.js'
 
-const dateToday = new Date().toISOString().substring(0,10);
-let menus;
+//Obtengo el menu de hoy
+//Si se encuentra lo renderizo
+//Si no tiro error 
+getTodayMenu()
+    .then(menu => renderizeTodayMenu(menu))
+    .catch((err) => {failLoad()});
 
-async function getTodayMenu() {
-    let response = await fetch(endPoint+dateToday);
-    let menu = await response.json();
-    return menu;
-};
+//Obtengo los 3 contendores de elementos para las comidas
+const rowContainer = document.querySelectorAll('.container-row-food');
 
-const menuPromise = new Promise((resolve) => {
-    return resolve(getTodayMenu());
-})
-.then(menu => {
-    generateTodayMenu(menu);
-    menus = menu;
-})
-.catch((err) => {failLoad()})
-//////
-// Fin peticion menu de hoy
-/////
+/**
+ * Esta funcion renderiza las comidas como se ve en la pagina de inicio.
+ * Se trata de una imagen y titulo, que es presionable para mostrar
+ * toda la informacion del menu.
+ * @param {JSON} menus 
+ */
+const renderizeTodayMenu = (menus) => {
+    rowContainer.forEach((row, indice) => {
+        //Obtengo el subconjunto de comidas correspondiente
+        //Desayuno, almuerzo o merienda
+        const foodSubset = menus[Object.keys(menus)[indice+1]];
 
-let foodElem = document.querySelectorAll('.container-row-food');
+        //Recorro las comidas
+        for(const food of foodSubset){
+            //Creo un boton para aparecer el modal
+            const button = document.createElement("button");
+            button.id = "clickeable";
+            button.addEventListener('click', () => {
+                aparecerModal(food);
+            });
+            //Contenedor de la imagen y titulo
+            const container = document.createElement("div");
+            container.classList.add("little-box");
+            button.appendChild(container);
+            //Imagen
+            const foodImg = document.createElement("img");
+            foodImg.classList.add("small-image");
+            foodImg.alt = "Imagen del menu " + food.nombre;
+            foodImg.src = food.foto;
+            //Contenedor de titulo
+            const titleContainer = document.createElement("div");
+            titleContainer.classList.add("little-box-title");
+            //Titulo
+            const title = document.createElement("h4");
+            title.id = "little-title-style";
+            title.innerHTML = food.nombre;
+            titleContainer.appendChild(title);
+            
+            container.appendChild(foodImg);
+            container.appendChild(titleContainer);
+            
+            row.appendChild(button);
+        }
+    });
+}
 
-let elemts = [];
-foodElem.forEach((elem) => {
-    elemts.push(elem);
+/**
+ * Cuando falla el getTodayMenu.
+ * Renderiza un texto para indicar al usuario que
+ * "No se han encontrado menus para hoy".
+ */
+function failLoad(){
+    const contenedor = document.querySelector('.container-menus');
+    contenedor.id = 'time-foods';
+    contenedor.innerHTML = "No se han encontrado menus para hoy";
+}
+
+/**
+ * Establece el comportamiento de los botones que redireccionan a
+ * la siguente pagina.
+ */
+const elemntsNextMeals = document.querySelectorAll('#next-meal');
+elemntsNextMeals.forEach((elem) => {
+    addFunctionRefButton(elem, "../proxComedor");
 });
 
-function aparecerModal(name, number) {
+/**
+ * Esta funcion oculta el fondo y renderiza un Modal que muestra
+ * todos los detalles de una comida.
+ * @param {JSON} elem Se trata de una comida
+ */
+const aparecerModal = (elem) => {
+    //Impide el desplazamiento
     document.body.style.overflow = "hidden";
-
-    let elem = menus[name][number];
-    let countElems = 4;
-    let elements = new Array(countElems);
-
-    let hiderBack = document.createElement("div");
+    //Oculta el fondo
+    const hiderBack = document.createElement("div");
     hiderBack.id = "hidden-background";
     document.body.appendChild(hiderBack);
-
-    let bigBox = document.createElement("div");
+    //Contenedor Modal
+    const bigBox = document.createElement("div");
     bigBox.classList.add("large-menu-box");
-
-    //Create a image
-    let imageGrande = document.createElement("img");
+    //Imagen del modal
+    const imageGrande = document.createElement("img");
     imageGrande.classList.add("big-image");
     imageGrande.alt = "Imagen del menu: "+elem.nombre;
     imageGrande.src = elem.foto;
-
-    let bigTitle = document.createElement("h4");
+    //Titulo del modal
+    const bigTitle = document.createElement("h4");
     bigTitle.classList.add("big-menu-title");
-    bigTitle.innerHTML = elem.nombre;
-
-    elements[0] = document.createElement("div");
-    elements[0].classList.add("fix-image-title");
-    elements[0].appendChild(imageGrande);
-    elements[0].appendChild(bigTitle);
-
-
-    elements[1] = document.createElement("p");
-    elements[1].classList.add("large-menu-paragraph");
-    elements[1].innerHTML = elem.ingredientes;
-
-    let priceContainer = document.createElement("div");
-
-    let reserve = document.createElement("p");
+    bigTitle.textContent = elem.nombre;
+    //Contenedor de la imagen y titulo
+    const imgTitleContainer = document.createElement("div");
+    imgTitleContainer.classList.add("fix-image-title");
+    imgTitleContainer.appendChild(imageGrande);
+    imgTitleContainer.appendChild(bigTitle);
+    //Texto descripcion
+    const description = document.createElement("p");
+    description.classList.add("large-menu-paragraph");
+    description.innerHTML = elem.ingredientes;
+    //Texto cantidad de reservas
+    const reserve = document.createElement("p");
     reserve.classList.add("info-coupon");
     reserve.innerHTML = "Cantidad de Cupones: "+elem.reservas;
-
-    let price = document.createElement("p");
+    //Texto precio
+    const price = document.createElement("p");
     price.classList.add("info-coupon");
     price.innerHTML = "Precio: "+elem.precio;
-
-    let cardPrice = document.createElement("p");
+    //Texto precio con carnet
+    const cardPrice = document.createElement("p");
     cardPrice.classList.add("info-coupon");
     cardPrice.innerHTML = "Precio Carnet: "+elem.precio;
-
+    //Contenedor de los textos reservas, precio y precio carnet
+    const priceContainer = document.createElement("div");
     priceContainer.appendChild(reserve);
     priceContainer.appendChild(price);
     priceContainer.appendChild(cardPrice);
-
-    let reserveButton = document.createElement("button");
+    //Boton reservar
+    const reserveButton = document.createElement("button");
     reserveButton.id = "button-to-reserve";
     reserveButton.innerHTML = "RESERVAR";
-
-    let likeButton = document.createElement("button");
+    //Boton like
+    const likeButton = document.createElement("button");
     likeButton.id = "like-button";
-    let likeIcon = document.createElement("i");
+    const likeIcon = document.createElement("i");
     likeIcon.classList.add("bi");
     likeIcon.classList.add("bi-hand-thumbs-up-fill");
     likeButton.appendChild(likeIcon);
-
-    elements[2] = document.createElement("div");
-    elements[2].classList.add("container-row-buttons");
-    elements[2].appendChild(likeButton);
-    elements[2].appendChild(reserveButton);
-    elements[2].appendChild(priceContainer);
+    //Contenedor de botones reservar y like
+    const buttonsContainer = document.createElement("div");
+    buttonsContainer.classList.add("container-row-buttons");
+    buttonsContainer.appendChild(likeButton);
+    buttonsContainer.appendChild(reserveButton);
+    buttonsContainer.appendChild(priceContainer);
+    //Boton cerrar
+    const closeButton = document.createElement("button");
+    closeButton.id = "close";
     
-    elements[3] = document.createElement("button");
-    elements[3].id = "close";
-    
-    
-    for(let i=0;i<countElems;i++){
-        bigBox.appendChild(elements[i]);
-    }
+    bigBox.appendChild(imgTitleContainer);
+    bigBox.appendChild(description);
+    bigBox.appendChild(buttonsContainer);
+    bigBox.appendChild(closeButton);
     
     document.body.appendChild(bigBox);
-    
-    let reservar = document.querySelector('#button-to-reserve');
+    //Agrego comportamiento al boton reservar
+    const reservar = document.querySelector('#button-to-reserve');
     reservar.addEventListener('click',
     () => {
         elem.reservas--;   
         window.alert("Descargar comprobante de reserva");
     }
     );
-
-    let liker = document.querySelector('#like-button');
+    //Agrego comportamiento al boton like
+    const liker = document.querySelector('#like-button');
     liker.addEventListener('click',
     () => {
         elem.likes++;
     }
     );
-    
-    let close = document.querySelector('#close');
+    //Agrego comportamiento al boton cerrar
+    const close = document.querySelector('#close');
     close.addEventListener('click',
     () => {
         let parent = bigBox.parentNode;
@@ -138,63 +182,3 @@ function aparecerModal(name, number) {
 
     bigBox.focus();
 }
-
-const generateTodayMenu = (menus) => {
-    let option = ["desayunos", "almuerzos", "meriendas"];
-    let comidas = [menus.desayunos, menus.almuerzos, menus.meriendas];
-
-    for (let index = 0; index < 3; index++) {
-        let toGenerate = comidas[index];
-        
-        for (let i = 0; i < toGenerate.length; i++) {
-            let elements = new Array(5);
-            
-            let button = document.createElement("button");
-            button.id = "clickeable";
-            button.addEventListener('click', () => {
-                aparecerModal(option[i], i)
-            });
-
-            elements[1] = document.createElement("div");
-            elements[1].classList.add("little-box");
-            button.appendChild(elements[1]);
-
-            elements[2] = document.createElement("img");
-            elements[2].classList.add("small-image");
-            elements[2].alt = "Imagen del menu " + toGenerate[i].nombre;;
-            elements[2].src = toGenerate[i].foto;
-            elements[1].appendChild(elements[2]);
-
-            elements[3] = document.createElement("div");
-            elements[3].classList.add("little-box-title");
-            elements[1].appendChild(elements[3]);
-
-            elements[4] = document.createElement("h4");
-            elements[4].id = "little-title-style";
-            elements[4].innerHTML = toGenerate[i].nombre;
-            elements[3].appendChild(elements[4]);
-            
-            elemts[index].appendChild(button);
-        }
-    }
-}
-
-function failLoad(){
-    let contenedor = document.querySelector('.container-menus');
-    contenedor.id = 'time-foods';
-    contenedor.innerHTML = "No se han encontrado menus para hoy";
-}
-
-
-let elemntsNextMeals = document.querySelectorAll('#next-meal');
-let buttonsNextMeal = [];
-elemntsNextMeals.forEach((elem) => {
-    buttonsNextMeal.push(elem);
-});
-
-buttonsNextMeal[0].addEventListener('click', () => {
-    location.href = "/proxComedor";
-});
-buttonsNextMeal[1].addEventListener('click', () => {
-    location.href = "/proxComedor";
-});

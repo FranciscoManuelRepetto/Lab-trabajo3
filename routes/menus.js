@@ -1,10 +1,17 @@
+//Importa servicios
+const {buildPagination} = require('../services/buildPagination.js');
+const {buildMenu} = require('../services/buildMenu.js');
+const {getDayjsFormat} = require('../services/getDayjsFormat.js');
+const {getMenuDate} = require('../services/getMenuDate.js');
+const {getMenusBetween} = require('../services/getMenusBetween.js');
+
+
 //Importa express
 const express = require('express');
 const routerMenu = express.Router();
 
 //Importa informacion de los menus
 const menus = require('../database/db_menus');
-const validator = require('../validate/ValidateMenus');
 
 //Importa libreria para utilizar fechas
 const dayjs = require('dayjs');
@@ -18,7 +25,7 @@ routerMenu.get('/', (req, res) => {
 routerMenu.get('/coming',
         (req, res, next) => {
             queryIsNotEmpty = JSON.stringify(req.query) !== '{}';
-            if(queryIsNotEmpty)next('route');
+            if(queryIsNotEmpty) next('route');
             else next();
         },
         (req, res, next) => {
@@ -128,74 +135,5 @@ routerMenu.post('/', (req, res) => {
     res.header(`Access-Control-Allow-Origin`);
     res.status(201).json(menu);
 });
-
-//Funcion que retorna un objeto daysjs con el formato YYYY/MM/DD
-const getDayjsFormat = (dateJSON) => {
-    return dayjs(`${dateJSON.year}-${dateJSON.month}-${dateJSON.day}`);
-};
-
-//Funcion que retorna el menu de una fecha especifica
-const getMenuDate = (date) => {
-    const menuFromDate = menus.find(menu => {
-        let dateLook = getDayjsFormat(menu.fecha);
-        return dateLook.isSame(date, 'day');
-    });
-    return menuFromDate;
-};
-
-//Funcion que retorna los menus entre dos fechas especificas
-const getMenusBetween = (date1, date2) => {
-    const dateMenus = menus.filter(menu => {
-        let dateLook = getDayjsFormat(menu.fecha);
-        return  dateLook.isAfter(date1, 'day') &&
-                dateLook.isBefore(date2, 'day');
-    });
-    return dateMenus;
-};
-
-//Funcion que construye la respuesta json para paginado infinito
-const buildPagination = (menuJSON, currentPage, currentDate) => {
-    const newDate = currentDate.add(1, 'day');
-    const nextMenu = getMenuDate(newDate) || null;
-
-    const nextPage = nextMenu === null? "null" : '"'+process.env.URL_COMING+"?page="+(parseInt(currentPage)+1)+'"';
-    
-    const prevPage = currentPage === 1 ? "null" : '"'+process.env.URL_COMING+"?page="+(parseInt(currentPage)-1)+'"';
-    
-    const menuPaged = 
-        '{"info": {"next":'+nextPage+', "prev":'+prevPage+'},'+
-        '"result":'+JSON.stringify(menuJSON)+'}';
-    return menuPaged;
-};
-
-//Agregar fecha creacion "CreadoEn":"Date"
-//Funcion para validar si el menu ingresado por parametro es valido
-const buildMenu = (menuBody) => {
-    try{
-        validator.checkMenu(menuBody);
-    }
-    catch(err){
-        return {"Error": `${err}`};
-    }
-
-    let menuJSON = setId(menuBody);
-
-    return menuJSON;
-};
-
-//Funcion para asignarle un id a cada submenu del menu ingresado por parametro
-const setId = (menuJSON) => {
-    let times = ["desayunos","almuerzos","meriendas"];
-    let date = `${menuJSON.fecha.year}-${menuJSON.fecha.month}-${menuJSON.fecha.day}`;
-    for (let index = 0; index < 3; index++) {
-        let menuSize = (menuJSON[times[index]]).length;
-        
-        for (let i = 0; i < menuSize; i++) {
-            menuJSON[times[index]][i].id = `${date}${times[index]}${i}`;
-        }
-    }
-
-    return menuJSON;
-};
 
 module.exports = routerMenu;
