@@ -115,6 +115,7 @@ routerMenu.get('/:date', (req, res) => {
 //Endpoint que recibe en el body un menu y si los datos son validos crea un menu y lo almacena
 //Envia como respuesta el menu que se almaceno
 routerMenu.post('/', (req, res) => {
+    console.log(req.body);
     let menu = buildMenu(req.body);
 
     if(menu.Error){

@@ -32,35 +32,33 @@ const submenuSchema = {
 }
 
 //Define tipo de datos de los elementos del menu completo
+// Define tipo de datos de los elementos del menu completo
 const menuSchema = {
     "id": "/MenuSchema",
     "type": "object",
-    "properties":{
-        "fecha":{"$ref":"/DateSchema"},
-        "desayunos":{
-            "type":"array",
-            "items":{
-                "$ref":"/SubmenuSchema",
-                "$ref":"/SubmenuSchema"
-            }
-        },
-        "almuerzos":{
-            "type":"array",
-            "items":{
-                "$ref":"/SubmenuSchema",
-                "$ref":"/SubmenuSchema"
-            }
-        },
-        "meriendas":{
-            "type":"array",
-            "items":{
-                "$ref":"/SubmenuSchema",
-                "$ref":"/SubmenuSchema"
-            }
-        }
+    "properties": {
+      "fecha": { "$ref": "/DateSchema" },
+      "desayunos": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 2,
+        "items": { "$ref": "/SubmenuSchema" }
+      },
+      "almuerzos": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 2,
+        "items": { "$ref": "/SubmenuSchema" }
+      },
+      "meriendas": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 2,
+        "items": { "$ref": "/SubmenuSchema" }
+      }
     },
     "required": ["fecha", "desayunos", "almuerzos", "meriendas"]
-}
+};
 
 validator.addSchema(dateSchema, '/DateSchema');
 validator.addSchema(submenuSchema, '/SubmenuSchema');
