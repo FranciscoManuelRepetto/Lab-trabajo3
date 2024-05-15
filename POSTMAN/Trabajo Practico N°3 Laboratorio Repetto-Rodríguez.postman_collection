@@ -1,0 +1,601 @@
+{
+	"info": {
+		"_postman_id": "21077b84-d434-4385-9b7e-cb817bd2ec51",
+		"name": "Trabajo Practico N°3 Laboratorio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24643901"
+	},
+	"item": [
+		{
+			"name": "Solicitudes a \"/api/menus\"",
+			"item": [
+				{
+					"name": "(GET) Todos los menus",
+					"item": [
+						{
+							"name": "TODOS los menus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "(GET) Menu de una fecha",
+					"item": [
+						{
+							"name": "FECHA VALIDA",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/menus/:date",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus",
+										":date"
+									],
+									"variable": [
+										{
+											"key": "date",
+											"value": "2022-12-01"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fecha NO valida",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/menus/:date",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus",
+										":date"
+									],
+									"variable": [
+										{
+											"key": "date",
+											"value": "2000-10-02"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "(GET) Menu entre dos fechas",
+					"item": [
+						{
+							"name": "FECHAS VALIDAS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/menus/:dateInit/:dateEnd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus",
+										":dateInit",
+										":dateEnd"
+									],
+									"variable": [
+										{
+											"key": "dateInit",
+											"value": "2022-11-25"
+										},
+										{
+											"key": "dateEnd",
+											"value": "2022-11-29"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fecha inicial NO valida",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/menus/:dateInit/:dateEnd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus",
+										":dateInit",
+										":dateEnd"
+									],
+									"variable": [
+										{
+											"key": "dateInit",
+											"value": "2022-12-25"
+										},
+										{
+											"key": "dateEnd",
+											"value": "2022-11-29"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fecha final NO valida",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/menus/:dateInit/:dateEnd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus",
+										":dateInit",
+										":dateEnd"
+									],
+									"variable": [
+										{
+											"key": "dateInit",
+											"value": "2022-11-25"
+										},
+										{
+											"key": "dateEnd",
+											"value": "2000-11-26"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "(POST) Crear menu",
+					"item": [
+						{
+							"name": "DATOS VALIDOS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "dia NO valido",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":35},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "mes NO valido",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":13, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "año NO valido",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":-1, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fecha existente",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":22},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "nombre NO Valido",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":213,\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ingredientes NO validos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":65656,\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "precio NO valido",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":\"13313\",\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "precio carnet NO valido",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":\"oaoaoao\",\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "foto NO valida",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":3232,\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reserva NO valida",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":\"reservas\",\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "likes NO validos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fecha\":{\"year\":2022, \"month\":11, \"day\":27},\r\n    \"desayunos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":\"dada\"\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ],\r\n    \"almuerzos\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0                    }\r\n    ],\r\n    \"meriendas\":[\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        },\r\n        {\r\n            \"nombre\":\"Et voluptate et nostrud eiusmod\",\r\n            \"ingredientes\":\"Ad cillum aliqua esse irure. Cupidatat esse eu Lorem esse occaecat elit voluptate consectetur ex officia non occaecat labore. Est irure pariatur consectetur consectetur dolore tempor ullamco sunt exercitation nostrud. Tempor nisi amet cillum velit id qui occaecat ex consequat. Nisi amet commodo reprehenderit dolor laborum sunt quis aliquip adipisicing commodo qui dolor.\",\r\n            \"precio\":2,\r\n            \"precioCarnet\":1,\r\n            \"foto\":\"https://assets.unileversolutions.com/recipes-v2/209413.jpg\",\r\n            \"reservas\":100,\r\n            \"likes\":0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/menus",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menus"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Solicitudes a \"/\"",
+			"item": [
+				{
+					"name": "Cargar menu hoy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Solicitudes a \"/proxComedor\"",
+			"item": [
+				{
+					"name": "Cargar menus proximos dias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/proxComedor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"proxComedor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
